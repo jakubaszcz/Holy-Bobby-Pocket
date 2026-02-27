@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -19,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float xRotation;
     
     [SerializeField] private bool isSprint;
+
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     private void OnMovement(InputAction.CallbackContext context)
     {
