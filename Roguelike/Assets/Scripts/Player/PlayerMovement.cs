@@ -4,14 +4,19 @@ using UnityEngine.InputSystem;
 public class PlayerMovement : MonoBehaviour
 {
     private InputSystemActions _inputSystemActions;
+    [SerializeField] private Transform camera;
+    
     
     [Header("Player characteristics")]
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float sprintSpeed = 20f;
+    [SerializeField] private float sensitivity = 1f;
     
     [Header("Player directions")]
     [SerializeField] private Rigidbody rigidbody;
+    [SerializeField] private Vector2 look;
     [SerializeField] private Vector2 movement;
+    [SerializeField] private float xRotation;
     
     [SerializeField] private bool isSprint;
 
@@ -25,6 +30,21 @@ public class PlayerMovement : MonoBehaviour
         isSprint = context.ReadValueAsButton();
     }
     
+    private void OnLook(InputAction.CallbackContext context)
+    {
+        look = context.ReadValue<Vector2>();
+        
+        float x = look.x * sensitivity;
+        float y = look.y * sensitivity;
+        
+        xRotation -= y;
+        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        
+        camera.localRotation =
+            Quaternion.Euler(xRotation, 0f, 0f);
+        
+        transform.Rotate(Vector3.up * x);
+    }
     
     private void Awake()
     {
@@ -43,9 +63,12 @@ public class PlayerMovement : MonoBehaviour
     {
         float speed = isSprint ? sprintSpeed : walkSpeed;
     
+        Vector3 forward = camera.forward;
+        Vector3 right = camera.right;
+        
         Vector3 direction =
-            transform.right * movement.x +
-            transform.forward * movement.y;
+            right * movement.x +
+            forward * movement.y;
 
         Vector3 velocity = direction * speed;
 
@@ -67,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
         // Run
         _inputSystemActions.Player.Sprint.performed += OnSprint;
         _inputSystemActions.Player.Sprint.canceled += OnSprint;
+        
+        // Look
+        _inputSystemActions.Player.Look.performed += OnLook;
 
     }
     
@@ -75,12 +101,15 @@ public class PlayerMovement : MonoBehaviour
         _inputSystemActions.Disable();
         
         // Movement
-        _inputSystemActions.Player.Move.performed += OnMovement;
-        _inputSystemActions.Player.Move.canceled += OnMovement;
+        _inputSystemActions.Player.Move.performed -= OnMovement;
+        _inputSystemActions.Player.Move.canceled -= OnMovement;
         
         // Run
         _inputSystemActions.Player.Sprint.performed -= OnSprint;
         _inputSystemActions.Player.Sprint.canceled -= OnSprint;
+        
+        // Look
+        _inputSystemActions.Player.Look.performed -= OnLook;
     }
     
 }
