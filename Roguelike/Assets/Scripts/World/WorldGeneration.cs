@@ -14,8 +14,10 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private int worldLength = 10;
     [SerializeField] private int worldWidth = 10;
     [SerializeField] private float tileSize = 5f;
+    [SerializeField] private float tileHeight = 1.5f;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
+    private List<Vector3> usedEntityPosition = new List<Vector3>();
 
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
     enum Wall { North, East, South, West }
@@ -82,12 +84,29 @@ public class WorldGeneration : MonoBehaviour
     {
         int enemies = (worldLength + worldWidth) / 2;
 
-        Instantiate(player, availableFloorPositions[0], Quaternion.identity);
+        Vector3 origin = availableFloorPositions[0];
+        
+        origin.y += tileHeight;
+
+        Instantiate(player, origin, Quaternion.identity);
         
         for (int i = 1; i < enemies; i++)
         {
-            Instantiate(enemy, availableFloorPositions[i], Quaternion.identity);
+            Instantiate(enemy, RandomGenerateEntities(), Quaternion.identity);
         }
         
+    }
+
+    private Vector3 RandomGenerateEntities()
+    {
+        Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
+
+        if (usedEntityPosition.Contains(position)) return RandomGenerateEntities();
+        
+        usedEntityPosition.Add(position);
+        
+        position.y += tileHeight;
+        
+        return position;
     }
 };

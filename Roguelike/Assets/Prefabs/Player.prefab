@@ -124,6 +124,7 @@ GameObject:
   - component: {fileID: 4367960796936212139}
   - component: {fileID: 7208924870026644075}
   - component: {fileID: 4467323386242369416}
+  - component: {fileID: 7049382576621319968}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -236,18 +237,45 @@ MonoBehaviour:
   m_GameObject: {fileID: 7831948903726590570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 808b7638dea81ab5f80aaeedfe206156, type: 3}
+  m_Script: {fileID: 11500000, guid: 36269ac00eeccb14cbcb4a78bcf6a81b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  camera: {fileID: 0}
+  camera: {fileID: 1207068770470305896}
   walkSpeed: 10
   sprintSpeed: 20
   sensitivity: 1
-  rigidbody: {fileID: 0}
+  rigidbody: {fileID: 7049382576621319968}
   look: {x: 0, y: 0}
   movement: {x: 0, y: 0}
   xRotation: 0
   isSprint: 0
+--- !u!54 &7049382576621319968
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831948903726590570}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &8655597988438245893
 GameObject:
   m_ObjectHideFlags: 0
