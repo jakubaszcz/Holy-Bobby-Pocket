@@ -282,15 +282,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 684831981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3069fda99507105b7b50ec9fee0363e5, type: 3}
+  m_Script: {fileID: 11500000, guid: a332c337843ba9d8b9055c1d4bca3ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
-  floor: {fileID: 2506921122010385301, guid: 1891c59474118a43d946d7455eab39e1, type: 3}
-  wall: {fileID: 7266574692702723957, guid: 7e8f7d7ca28a006d8b0aadc7681a40c9, type: 3}
-  corner: {fileID: 154532050570917948, guid: c4558f6f98e492beb84f61d8a61de932, type: 3}
-  worldLength: 20
-  worldWidth: 30
+  floor: {fileID: 8980594197946322185, guid: c36040dff2409344d9bd0324f75ff070, type: 3}
+  wall: {fileID: 2531768385511907314, guid: b4a2ef173b9b6ad7da1540b7f7f8a632, type: 3}
+  corner: {fileID: 1049314322047657517, guid: b4e843cce6925463593d0a66a074b3d5, type: 3}
+  worldLength: 10
+  worldWidth: 10
   tileSize: 5
+  playerCount: 0
+  enemyCount: 0
 --- !u!4 &684831983
 Transform:
   m_ObjectHideFlags: 0

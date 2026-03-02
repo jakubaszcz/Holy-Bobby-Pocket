@@ -41,7 +41,6 @@ public class WorldGeneration : MonoBehaviour
     private void Start()
     {
         GenerateWorld();
-        GenerateEntities();
     }
 
     private void GenerateWorld()
@@ -81,9 +80,5 @@ public class WorldGeneration : MonoBehaviour
     private void GenerateEntities()
     {
         int enemies = (worldLength + worldWidth) / 2;
-
-        if (enemies + 1 > availableFloorPositions.Count)
-        {
-        }
     }
 };
