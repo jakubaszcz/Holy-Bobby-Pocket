@@ -12,6 +12,10 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private int worldLength = 10;
     [SerializeField] private int worldWidth = 10;
     [SerializeField] private float tileSize = 5f;
+    [SerializeField] private int playerCount;
+    [SerializeField] private int enemyCount;
+    
+    private List<Vector3> availableFloorPositions = new List<Vector3>();
 
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
     enum Wall { North, East, South, West }
@@ -36,6 +40,12 @@ public class WorldGeneration : MonoBehaviour
 
     private void Start()
     {
+        GenerateWorld();
+        GenerateEntities();
+    }
+
+    private void GenerateWorld()
+    {
         Instantiate(corner, origin, cornerRotations[Corner.BottomLeft]);
 
         for (int x = 1; x < worldLength - 1; x++)
@@ -48,7 +58,14 @@ public class WorldGeneration : MonoBehaviour
             Instantiate(wall, origin + new Vector3(0, 0, tileSize * z), wallRotations[Wall.West]);
 
             for (int x = 1; x < worldLength - 1; x++)
-                Instantiate(floor, origin + new Vector3(tileSize * x, 0, tileSize * z), Quaternion.identity);
+            {
+                Vector3 position = origin + new Vector3(tileSize * x, 0, tileSize * z);
+                
+                Instantiate(floor, origin + position, Quaternion.identity);
+                
+                availableFloorPositions.Add(position);
+                
+            }
 
             Instantiate(wall, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * z), wallRotations[Wall.East]);
         }
@@ -59,5 +76,14 @@ public class WorldGeneration : MonoBehaviour
             Instantiate(wall, origin + new Vector3(tileSize * x, 0, tileSize * (worldWidth - 1)), wallRotations[Wall.North]);
 
         Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopRight]);
+    }
+
+    private void GenerateEntities()
+    {
+        int enemies = (worldLength + worldWidth) / 2;
+
+        if (enemies + 1 > availableFloorPositions.Count)
+        {
+        }
     }
 };
