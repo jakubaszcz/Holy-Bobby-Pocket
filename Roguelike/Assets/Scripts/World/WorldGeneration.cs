@@ -1,0 +1,63 @@
+using System.Collections.Generic;
+using UnityEngine;
+
+public class WorldGeneration : MonoBehaviour
+{
+    [Header("Prefabs")]
+    [SerializeField] private GameObject floor;
+    [SerializeField] private GameObject wall;
+    [SerializeField] private GameObject corner;
+
+    [Header("World Settings")]
+    [SerializeField] private int worldLength = 10;
+    [SerializeField] private int worldWidth = 10;
+    [SerializeField] private float tileSize = 5f;
+
+    enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
+    enum Wall { North, East, South, West }
+
+    Dictionary<Corner, Quaternion> cornerRotations = new Dictionary<Corner, Quaternion>();
+    Dictionary<Wall, Quaternion> wallRotations = new Dictionary<Wall, Quaternion>();
+
+    private Vector3 origin = Vector3.zero;
+
+    private void Awake()
+    {
+        cornerRotations[Corner.TopLeft]     = Quaternion.Euler(0, 270, 0);
+        cornerRotations[Corner.TopRight]    = Quaternion.Euler(0, 0,   0);
+        cornerRotations[Corner.BottomLeft]  = Quaternion.Euler(0, 180, 0);
+        cornerRotations[Corner.BottomRight] = Quaternion.Euler(0, 90,  0);
+
+        wallRotations[Wall.North] = Quaternion.Euler(0, 0,   0);
+        wallRotations[Wall.East]  = Quaternion.Euler(0, 90,  0);
+        wallRotations[Wall.South] = Quaternion.Euler(0, 180, 0);
+        wallRotations[Wall.West]  = Quaternion.Euler(0, 270, 0);
+    }
+
+    private void Start()
+    {
+        Instantiate(corner, origin, cornerRotations[Corner.BottomLeft]);
+
+        for (int x = 1; x < worldLength - 1; x++)
+            Instantiate(wall, origin + new Vector3(tileSize * x, 0, 0), wallRotations[Wall.South]);
+
+        Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, 0), cornerRotations[Corner.BottomRight]);
+
+        for (int z = 1; z < worldWidth - 1; z++)
+        {
+            Instantiate(wall, origin + new Vector3(0, 0, tileSize * z), wallRotations[Wall.West]);
+
+            for (int x = 1; x < worldLength - 1; x++)
+                Instantiate(floor, origin + new Vector3(tileSize * x, 0, tileSize * z), Quaternion.identity);
+
+            Instantiate(wall, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * z), wallRotations[Wall.East]);
+        }
+
+        Instantiate(corner, origin + new Vector3(0, 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopLeft]);
+
+        for (int x = 1; x < worldLength - 1; x++)
+            Instantiate(wall, origin + new Vector3(tileSize * x, 0, tileSize * (worldWidth - 1)), wallRotations[Wall.North]);
+
+        Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopRight]);
+    }
+};
