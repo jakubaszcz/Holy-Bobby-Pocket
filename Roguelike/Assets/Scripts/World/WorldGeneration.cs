@@ -7,13 +7,13 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject floor;
     [SerializeField] private GameObject wall;
     [SerializeField] private GameObject corner;
+    [SerializeField] private GameObject enemy;
+    [SerializeField] private GameObject player;
 
     [Header("World Settings")]
     [SerializeField] private int worldLength = 10;
     [SerializeField] private int worldWidth = 10;
     [SerializeField] private float tileSize = 5f;
-    [SerializeField] private int playerCount;
-    [SerializeField] private int enemyCount;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
 
@@ -41,6 +41,7 @@ public class WorldGeneration : MonoBehaviour
     private void Start()
     {
         GenerateWorld();
+        GenerateEntities();
     }
 
     private void GenerateWorld()
@@ -80,5 +81,13 @@ public class WorldGeneration : MonoBehaviour
     private void GenerateEntities()
     {
         int enemies = (worldLength + worldWidth) / 2;
+
+        Instantiate(player, availableFloorPositions[0], Quaternion.identity);
+        
+        for (int i = 1; i < enemies; i++)
+        {
+            Instantiate(enemy, availableFloorPositions[i], Quaternion.identity);
+        }
+        
     }
 };
