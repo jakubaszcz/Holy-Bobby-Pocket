@@ -22,6 +22,8 @@ public class WorldGeneration : MonoBehaviour
     private List<Vector3> usedEntityPosition = new List<Vector3>();
     private List<Vector3> usedObstaclePosition = new List<Vector3>();
 
+    private GameObject spawnedPlayer;
+    
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
     enum Wall { North, East, South, West }
 
@@ -104,14 +106,14 @@ public class WorldGeneration : MonoBehaviour
         
         origin.y += tileHeight;
 
-        Instantiate(player, origin, Quaternion.identity);
+        spawnedPlayer = Instantiate(player, origin, Quaternion.identity);
         
         for (int i = 1; i < enemies; i++)
         {
             GameObject spawnedEnemy = Instantiate(enemy, RandomGenerateEntities(), Quaternion.identity);
 
             EnemyVision script = spawnedEnemy.GetComponent<EnemyVision>();
-            script.SetPlayer(player.transform);
+            script.SetPlayer(spawnedPlayer.transform);
         }
         
     }
