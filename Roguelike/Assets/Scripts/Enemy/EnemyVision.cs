@@ -10,6 +10,11 @@ public class EnemyVision : MonoBehaviour
     
     [SerializeField] private Transform player;
 
+    public void SetPlayer(Transform transform)
+    {
+        player = transform;
+    }
+    
     private void Update()
     {
         if (SeenPlayer()) Debug.Log("Seen Player");
@@ -17,6 +22,7 @@ public class EnemyVision : MonoBehaviour
 
     private bool SeenPlayer()
     {
+        
         Vector3 directionToTarget = (player.position - transform.position).normalized;
         float distanceToTarget = Vector3.Distance(transform.position, player.position);
 
