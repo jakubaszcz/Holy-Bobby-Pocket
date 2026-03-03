@@ -23,6 +23,7 @@ public class PlayerStatistics : MonoBehaviour
         if (isSeen)
         {
             currentSeen += Time.deltaTime;
+            
             if (currentSeen >= maxTimeSeen)
             {
                 Destroy(gameObject);
