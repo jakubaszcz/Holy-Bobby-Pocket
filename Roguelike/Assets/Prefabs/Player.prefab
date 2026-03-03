@@ -125,6 +125,7 @@ GameObject:
   - component: {fileID: 7208924870026644075}
   - component: {fileID: 7049382576621319968}
   - component: {fileID: -3056982237572098058}
+  - component: {fileID: 7947730166901458393}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -276,6 +277,21 @@ MonoBehaviour:
   movement: {x: 0, y: 0}
   xRotation: 0
   isSprint: 0
+--- !u!114 &7947730166901458393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7831948903726590570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfbd6e140efd9da479e38fea2569000b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerStatistics
+  maxTimeSeen: 3
+  currentSeen: 0
+  isSeen: 0
 --- !u!1 &8655597988438245893
 GameObject:
   m_ObjectHideFlags: 0

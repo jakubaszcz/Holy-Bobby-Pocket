@@ -9,9 +9,12 @@ public class EnemyVision : MonoBehaviour
     public LayerMask obstacleLayer;
     public Transform player;
 
+    private PlayerStatistics playerStatistics;
+    
     public void SetPlayer(Transform player)
     {
         this.player = player;
+        playerStatistics = player.GetComponent<PlayerStatistics>();
     }
 
     private void Update()
@@ -38,11 +41,12 @@ public class EnemyVision : MonoBehaviour
         if (Physics.Raycast(transform.position, directionToPlayer, out hit, distance, obstacleLayer))
         {
             Debug.DrawRay(transform.position, directionToPlayer * distance, Color.red);
+            playerStatistics.SetSeen(false);
         }
         else
         {
             Debug.DrawRay(transform.position, directionToPlayer * distance, Color.green);
-            Debug.Log("PLAYER DETECTED");
+            playerStatistics.SetSeen(true);
         }
     }
 
