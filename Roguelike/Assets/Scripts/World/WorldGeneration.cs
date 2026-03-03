@@ -9,15 +9,18 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject corner;
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject player;
+    [SerializeField] private GameObject obstacle;
 
     [Header("World Settings")]
     [SerializeField] private int worldLength = 10;
     [SerializeField] private int worldWidth = 10;
     [SerializeField] private float tileSize = 5f;
     [SerializeField] private float tileHeight = 1.5f;
+    [SerializeField] private int obstaclesAmount = 6;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
     private List<Vector3> usedEntityPosition = new List<Vector3>();
+    private List<Vector3> usedObstaclePosition = new List<Vector3>();
 
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
     enum Wall { North, East, South, West }
@@ -44,6 +47,7 @@ public class WorldGeneration : MonoBehaviour
     {
         GenerateWorld();
         GenerateEntities();
+        GenerateObstacles();
     }
 
     private void GenerateWorld()
@@ -80,6 +84,18 @@ public class WorldGeneration : MonoBehaviour
         Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopRight]);
     }
 
+    private void GenerateObstacles()
+    {
+        for (int i = 0; i < obstaclesAmount; i++)
+        {
+            int orientation = Random.Range(0, 2);
+
+            Quaternion rotation = Quaternion.Euler(0f, orientation * 90f, 0f);
+
+            Instantiate(obstacle, RandomGenerateObstacles(), rotation);
+        }
+    }
+    
     private void GenerateEntities()
     {
         int enemies = (worldLength + worldWidth) / 2;
@@ -97,6 +113,17 @@ public class WorldGeneration : MonoBehaviour
         
     }
 
+    private Vector3 RandomGenerateObstacles()
+    {
+        Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
+
+        if (usedObstaclePosition.Contains(position)) return RandomGenerateObstacles();
+        
+        usedObstaclePosition.Add(position);
+
+        return position;
+    }
+    
     private Vector3 RandomGenerateEntities()
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];

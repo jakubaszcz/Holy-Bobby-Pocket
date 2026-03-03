@@ -145,18 +145,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 684831981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d709f96109f3fe447b62793b5fda199b, type: 3}
+  m_Script: {fileID: 11500000, guid: a332c337843ba9d8b9055c1d4bca3ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
-  floor: {fileID: 8980594197946322185, guid: 5a30f2408a3f49c4999f6029bec01718, type: 3}
-  wall: {fileID: 4064018745732450368, guid: d65cf700a93dcc943b5fa6cd1c1eca27, type: 3}
-  corner: {fileID: 288258430683306772, guid: 4293f5597413eb544a2cfc88a5bcd232, type: 3}
-  enemy: {fileID: 4687867745283326175, guid: 6d9e05d728e12ff4b8661b471875c4de, type: 3}
-  player: {fileID: 7831948903726590570, guid: 5269d91fd050dd34eb7da08883652a04, type: 3}
+  floor: {fileID: 8980594197946322185, guid: c36040dff2409344d9bd0324f75ff070, type: 3}
+  wall: {fileID: 4064018745732450368, guid: b4a2ef173b9b6ad7da1540b7f7f8a632, type: 3}
+  corner: {fileID: 288258430683306772, guid: b4e843cce6925463593d0a66a074b3d5, type: 3}
+  enemy: {fileID: 4687867745283326175, guid: 4ebf19fc2fc657661b232b2653096f17, type: 3}
+  player: {fileID: 7831948903726590570, guid: 1d33e31c1049938808038e22d3f49cd3, type: 3}
+  obstacle: {fileID: 1573423675905440501, guid: 6320d7a2ed823a9d6bbb56946f9bc830, type: 3}
   worldLength: 10
   worldWidth: 10
   tileSize: 5
   tileHeight: 1.5
+  obstaclesAmount: 35
 --- !u!4 &684831983
 Transform:
   m_ObjectHideFlags: 0
