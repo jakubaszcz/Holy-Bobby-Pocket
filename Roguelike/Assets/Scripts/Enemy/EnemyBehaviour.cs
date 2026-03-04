@@ -25,6 +25,9 @@ public class EnemyBehaviour : MonoBehaviour
 
     private void Start()
     {
+        
+        roamRadius = Random.Range(15f, 40f);
+        
         _agent = GetComponent<NavMeshAgent>();
         _enemyVision = GetComponent<EnemyVision>();
         StartIdle();
