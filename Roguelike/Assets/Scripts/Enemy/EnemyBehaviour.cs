@@ -15,9 +15,12 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private bool isIdle;
     [SerializeField] private bool isRotating;
     [SerializeField] private bool isReturning;
+    [SerializeField] private float followSpeed = 10f;
 
     private Quaternion targetRotation;
     private Quaternion initialRotation;
+
+    private EnemyVision _enemyVision;
 
     private void Start()
     {
@@ -33,12 +36,33 @@ public class EnemyBehaviour : MonoBehaviour
         
         rotateTime = Random.Range(1f, 2f);
         idleTime = Random.Range(1f, 2.5f);
+
+        _enemyVision = GetComponent<EnemyVision>();
     }
 
     private void Update()
     {
+        if (_enemyVision.getIsDetectingPlayer())
+        {
+            FollowPlayer();
+            return;
+        }
         UpdateIdle();
         UpdateRotate();
+    }
+
+    private void FollowPlayer()
+    {
+        if (_enemyVision.player == null) return;
+
+        Vector3 directionToPlayer = _enemyVision.player.position - transform.position;
+        directionToPlayer.y = 0f;
+
+        if (directionToPlayer != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, followSpeed * Time.deltaTime);
+        }
     }
 
     private void UpdateRotate()

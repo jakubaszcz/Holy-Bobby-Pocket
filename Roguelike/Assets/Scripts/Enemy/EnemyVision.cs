@@ -11,6 +11,11 @@ public class EnemyVision : MonoBehaviour
 
     private PlayerStatistics playerStatistics;
     private bool isDetectingPlayer = false;
+
+    public bool getIsDetectingPlayer()
+    {
+        return isDetectingPlayer;
+    }
     
     public void SetPlayer(Transform player)
     {
