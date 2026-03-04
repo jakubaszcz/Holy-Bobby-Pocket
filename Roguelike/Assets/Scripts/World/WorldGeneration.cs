@@ -66,6 +66,8 @@ public class WorldGeneration : MonoBehaviour
         entitiesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
         obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength + worldWidth) * 4);
         collectiblesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
+
+		GameSignals.TriggerOnTotalColectible(collectiblesAmount);
     }
 
     private void GenerateWorld()

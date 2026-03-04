@@ -5,6 +5,7 @@ public static class GameSignals
 {
     public static event Action<float> OnSeenValueChanged;
     public static event Action<bool> IsSeenChanged;
+	public static event Action<int> OnTotalCollectible;
     
     private static int enemiesSeeingPlayer = 0;
 
@@ -22,4 +23,6 @@ public static class GameSignals
     }
     
     public static void TriggerSeenValueChanged(float value) { OnSeenValueChanged?.Invoke(value); }
+
+	public static void TriggerOnTotalColectible(int value) { OnTotalCollectible?.Invoke(value); } 
 }
