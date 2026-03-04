@@ -241,6 +241,7 @@ GameObject:
   - component: {fileID: 684831983}
   - component: {fileID: 684831985}
   - component: {fileID: 684831984}
+  - component: {fileID: 684831986}
   m_Layer: 0
   m_Name: World
   m_TagString: Untagged
@@ -276,6 +277,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   totalCollectibles: 0
+  currentCollectibles: 0
 --- !u!114 &684831985
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -302,6 +304,39 @@ MonoBehaviour:
   entitiesAmount: 0
   obstaclesAmount: 6
   collectiblesAmount: 10
+  navMeshSurface: {fileID: 684831986}
+--- !u!114 &684831986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 684831981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.AI.Navigation::Unity.AI.Navigation.NavMeshSurface
+  m_SerializedVersion: 0
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 0}
+  m_BuildHeightMesh: 0
 --- !u!1 &715621823
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,6 +674,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InterfaceText
   textObjectives: {fileID: 2029372731}
+  maxCollectibles: 0
 --- !u!1 &1992392677
 GameObject:
   m_ObjectHideFlags: 0
