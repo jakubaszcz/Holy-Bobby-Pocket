@@ -23,7 +23,7 @@ public class PlayerStatistics : MonoBehaviour
             if (currentSeen >= maxTimeSeen)
             {
                 currentSeen = maxTimeSeen;
-                Destroy(gameObject);
+                GameSignals.TriggerGameOver(GameSignals.GameOver.Lose);
             }
         }
         else

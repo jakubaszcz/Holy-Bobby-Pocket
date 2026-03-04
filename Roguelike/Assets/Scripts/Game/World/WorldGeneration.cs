@@ -139,15 +139,13 @@ public class WorldGeneration : MonoBehaviour
     
     private void GenerateEntities()
     {
-        int enemies = (worldLength + worldWidth) / 2;
-
         Vector3 origin = availableFloorPositions[0];
         
         origin.y += tileHeight;
 
         spawnedPlayer = Instantiate(player, origin, Quaternion.identity);
         
-        /*for (int i = 0; i < enemies; i++)
+        for (int i = 0; i < entitiesAmount; i++)
         {
             Quaternion  rotation = Quaternion.Euler(0f, Random.Range(0, 360f), 0f);
             
@@ -157,7 +155,7 @@ public class WorldGeneration : MonoBehaviour
             EnemyBehaviour scriptBehaviour = spawnedEnemy.GetComponent<EnemyBehaviour>();
             scriptVision.SetPlayer(spawnedPlayer.transform);
             scriptBehaviour.SetPlayer(spawnedPlayer.transform);
-        }*/
+        }
         
     }
 
