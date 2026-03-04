@@ -17,8 +17,8 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private int worldWidth = 10;
     [SerializeField] private float tileSize = 5f;
     [SerializeField] private float tileHeight = 1.5f;
+    [SerializeField] private float entitiesAmount; 
     [SerializeField] private int obstaclesAmount = 6;
-
     [SerializeField] private int collectiblesAmount = 10;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
@@ -50,10 +50,24 @@ public class WorldGeneration : MonoBehaviour
 
     private void Start()
     {
+        RandomizeValues();
+        
         GenerateWorld();
         GenerateEntities();
         GenerateObstacles();
         GenerateCollectibles();
+    }
+
+    private void RandomizeValues()
+    {
+        worldLength = Random.Range(15, 35);
+        worldWidth = Random.Range(15, 35);
+
+        entitiesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
+        obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength + worldWidth) * 4);
+        collectiblesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
+
+
     }
 
     private void GenerateWorld()
