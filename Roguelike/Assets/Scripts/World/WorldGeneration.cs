@@ -110,7 +110,9 @@ public class WorldGeneration : MonoBehaviour
         
         for (int i = 1; i < enemies; i++)
         {
-            GameObject spawnedEnemy = Instantiate(enemy, RandomGenerateEntities(), Quaternion.identity);
+            Quaternion  rotation = Quaternion.Euler(0f, Random.Range(0, 360f), 0f);
+            
+            GameObject spawnedEnemy = Instantiate(enemy, RandomGenerateEntities(), rotation);
 
             EnemyVision script = spawnedEnemy.GetComponent<EnemyVision>();
             script.SetPlayer(spawnedPlayer.transform);

@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1000, y: 20}
+  m_AnchoredPosition: {x: 0, y: 2}
+  m_SizeDelta: {x: 1000, y: 10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &389528401
 MonoBehaviour:
@@ -176,7 +176,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9a33defd09dafbc43b7a7ee5e28cf591, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1e9103d3f66695e898ec2bcca82175c5, type: 3}
   m_Type: 3
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -256,15 +256,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 684831981}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d709f96109f3fe447b62793b5fda199b, type: 3}
+  m_Script: {fileID: 11500000, guid: a332c337843ba9d8b9055c1d4bca3ebf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WorldGeneration
-  floor: {fileID: 8980594197946322185, guid: 5a30f2408a3f49c4999f6029bec01718, type: 3}
-  wall: {fileID: 4064018745732450368, guid: d65cf700a93dcc943b5fa6cd1c1eca27, type: 3}
-  corner: {fileID: 288258430683306772, guid: 4293f5597413eb544a2cfc88a5bcd232, type: 3}
-  enemy: {fileID: 4687867745283326175, guid: 6d9e05d728e12ff4b8661b471875c4de, type: 3}
-  player: {fileID: 7831948903726590570, guid: 5269d91fd050dd34eb7da08883652a04, type: 3}
-  obstacle: {fileID: 2018402090161855417, guid: 63345978386033041a43422980aa57e0, type: 3}
+  floor: {fileID: 8980594197946322185, guid: c36040dff2409344d9bd0324f75ff070, type: 3}
+  wall: {fileID: 4064018745732450368, guid: b4a2ef173b9b6ad7da1540b7f7f8a632, type: 3}
+  corner: {fileID: 288258430683306772, guid: b4e843cce6925463593d0a66a074b3d5, type: 3}
+  enemy: {fileID: 4687867745283326175, guid: 4ebf19fc2fc657661b232b2653096f17, type: 3}
+  player: {fileID: 7831948903726590570, guid: 1d33e31c1049938808038e22d3f49cd3, type: 3}
+  obstacle: {fileID: 2018402090161855417, guid: 6320d7a2ed823a9d6bbb56946f9bc830, type: 3}
   worldLength: 10
   worldWidth: 10
   tileSize: 5
@@ -503,6 +503,7 @@ GameObject:
   - component: {fileID: 1802640746}
   - component: {fileID: 1802640745}
   - component: {fileID: 1802640744}
+  - component: {fileID: 1802640748}
   m_Layer: 5
   m_Name: Interface
   m_TagString: Untagged
@@ -593,6 +594,19 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &1802640748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802640743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17fb777bbe57a5a2e9e4d0880a957d03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InterfaceProgressBar
+  progressBarImage: {fileID: 389528401}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
