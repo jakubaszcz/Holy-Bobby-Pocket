@@ -10,6 +10,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject enemy;
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject obstacle;
+    [SerializeField] private GameObject collectible;
 
     [Header("World Settings")]
     [SerializeField] private int worldLength = 10;
@@ -17,11 +18,13 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private float tileSize = 5f;
     [SerializeField] private float tileHeight = 1.5f;
     [SerializeField] private int obstaclesAmount = 6;
+
+    [SerializeField] private int collectiblesAmount = 10;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
     private List<Vector3> usedEntityPosition = new List<Vector3>();
     private List<Vector3> usedObstaclePosition = new List<Vector3>();
-
+    private List<Vector3> usedCollectibleLocation = new List<Vector3>();
     private GameObject spawnedPlayer;
     
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
@@ -50,6 +53,7 @@ public class WorldGeneration : MonoBehaviour
         GenerateWorld();
         GenerateEntities();
         GenerateObstacles();
+        GenerateCollectibles();
     }
 
     private void GenerateWorld()
@@ -120,6 +124,14 @@ public class WorldGeneration : MonoBehaviour
         
     }
 
+    private void GenerateCollectibles()
+    {
+        for (int i = 0; i < collectiblesAmount; i++)
+        {
+            Instantiate(collectible,  RandomGenerateCollectibles(), Quaternion.identity);
+        }
+    }
+
     private Vector3 RandomGenerateObstacles()
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
@@ -139,6 +151,19 @@ public class WorldGeneration : MonoBehaviour
         
         usedEntityPosition.Add(position);
         
+        position.y += tileHeight;
+        
+        return position;
+    }
+
+    private Vector3 RandomGenerateCollectibles()
+    {
+        Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
+        
+        if (usedCollectibleLocation.Contains(position) || usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position)) return RandomGenerateCollectibles();
+        
+        usedCollectibleLocation.Add(position);
+
         position.y += tileHeight;
         
         return position;

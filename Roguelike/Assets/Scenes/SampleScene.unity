@@ -265,11 +265,13 @@ MonoBehaviour:
   enemy: {fileID: 4687867745283326175, guid: 4ebf19fc2fc657661b232b2653096f17, type: 3}
   player: {fileID: 7831948903726590570, guid: 1d33e31c1049938808038e22d3f49cd3, type: 3}
   obstacle: {fileID: 2018402090161855417, guid: 6320d7a2ed823a9d6bbb56946f9bc830, type: 3}
+  collectible: {fileID: 8450310335222824879, guid: 50b122a1791619c3d88a335ceca15886, type: 3}
   worldLength: 10
   worldWidth: 10
   tileSize: 5
   tileHeight: 1.5
   obstaclesAmount: 6
+  collectiblesAmount: 10
 --- !u!4 &684831983
 Transform:
   m_ObjectHideFlags: 0
