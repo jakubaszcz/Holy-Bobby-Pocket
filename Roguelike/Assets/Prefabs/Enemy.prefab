@@ -125,7 +125,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687867745283326175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7143200ede4a782aa1ab45587c9f74e, type: 3}
+  m_Script: {fileID: 11500000, guid: 2cf23832189eaf24a87ea22a5bb9c118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
   detectionRange: 10
@@ -144,13 +144,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687867745283326175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5c5c624038682702931be66f68a5af0, type: 3}
+  m_Script: {fileID: 11500000, guid: f4dff6a35ebbe064ea36c3f75b5a9035, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
   rotateTime: 0
   idleTime: 0
   rotateSpeed: 45
-  rotateMaxAngle: 35
+  rotateMaxAngle: 45
   rotateLeft: 1
   isIdle: 0
   isRotating: 0
