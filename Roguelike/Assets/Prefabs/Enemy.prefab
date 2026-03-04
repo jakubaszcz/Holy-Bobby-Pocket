@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1234012531023602718}
   - component: {fileID: 5311208585929629918}
   - component: {fileID: 1181725155485267086}
+  - component: {fileID: 4645148408901446114}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -134,6 +135,26 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 0}
+--- !u!114 &4645148408901446114
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4687867745283326175}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5c5c624038682702931be66f68a5af0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyBehaviour
+  rotateTime: 0
+  idleTime: 0
+  rotateSpeed: 45
+  rotateMaxAngle: 35
+  rotateLeft: 1
+  isIdle: 0
+  isRotating: 0
+  isReturning: 0
 --- !u!1 &7111434590463228236
 GameObject:
   m_ObjectHideFlags: 0
