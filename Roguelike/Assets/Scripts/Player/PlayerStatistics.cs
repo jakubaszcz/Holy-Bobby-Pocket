@@ -11,11 +11,7 @@ public class PlayerStatistics : MonoBehaviour
     private void Start()
     {
         isSeen = false;
-    }
-
-    public void SetSeen(bool value)
-    {
-        isSeen = value;
+        GameSignals.ResetEnemyCounter();
     }
     
     private void Update()
@@ -26,6 +22,7 @@ public class PlayerStatistics : MonoBehaviour
             
             if (currentSeen >= maxTimeSeen)
             {
+                currentSeen = maxTimeSeen;
                 Destroy(gameObject);
             }
         }
@@ -40,5 +37,26 @@ public class PlayerStatistics : MonoBehaviour
                 }
             }
         }
+        
+        Debug.Log(currentSeen);
+        
+        GameSignals.TriggerSeenValueChanged(currentSeen / maxTimeSeen);
+    }
+
+    private void IsSeenChanged(bool value)
+    {
+        isSeen = value;
+        Debug.Log("Is seen :" + isSeen);
+    }
+    
+    private void OnEnable()
+    {
+        GameSignals.IsSeenChanged += IsSeenChanged; 
+    }
+
+    private void OnDisable()
+    {
+        GameSignals.IsSeenChanged -= IsSeenChanged;
+
     }
 }

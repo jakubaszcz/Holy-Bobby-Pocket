@@ -10,11 +10,21 @@ public class EnemyVision : MonoBehaviour
     public Transform player;
 
     private PlayerStatistics playerStatistics;
+    private bool isDetectingPlayer = false;
     
     public void SetPlayer(Transform player)
     {
         this.player = player;
         playerStatistics = player.GetComponent<PlayerStatistics>();
+    }
+
+    private void OnDisable()
+    {
+        if (isDetectingPlayer)
+        {
+            isDetectingPlayer = false;
+            GameSignals.SetEnemySeeing(false);
+        }
     }
 
     private void Update()
@@ -25,28 +35,40 @@ public class EnemyVision : MonoBehaviour
 
         Vector3 directionToPlayer = player.position - transform.position;
         float distance = directionToPlayer.magnitude;
+        bool playerDetected = false;
 
-        if (distance > detectionRange)
-            return;
-
-        directionToPlayer.Normalize();
-
-        float angle = Vector3.Angle(transform.forward, directionToPlayer);
-
-        if (angle > viewAngle / 2f)
-            return;
-
-        RaycastHit hit;
-
-        if (Physics.Raycast(transform.position, directionToPlayer, out hit, distance, obstacleLayer))
+        if (distance <= detectionRange)
         {
-            Debug.DrawRay(transform.position, directionToPlayer * distance, Color.red);
-            playerStatistics.SetSeen(false);
+            Vector3 direction = directionToPlayer.normalized;
+            float angle = Vector3.Angle(transform.forward, direction);
+
+            if (angle <= viewAngle / 2f)
+            {
+                RaycastHit hit;
+                if (!Physics.Raycast(transform.position, direction, out hit, distance, obstacleLayer))
+                {
+                    playerDetected = true;
+                }
+            }
+        }
+
+        if (playerDetected)
+        {
+            Debug.DrawRay(transform.position, directionToPlayer, Color.green);
+            if (!isDetectingPlayer)
+            {
+                isDetectingPlayer = true;
+                GameSignals.SetEnemySeeing(true);
+            }
         }
         else
         {
-            Debug.DrawRay(transform.position, directionToPlayer * distance, Color.green);
-            playerStatistics.SetSeen(true);
+            Debug.DrawRay(transform.position, directionToPlayer, Color.red);
+            if (isDetectingPlayer)
+            {
+                isDetectingPlayer = false;
+                GameSignals.SetEnemySeeing(false);
+            }
         }
     }
 

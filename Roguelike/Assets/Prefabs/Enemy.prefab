@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1028221856036706939}
   - component: {fileID: 1234012531023602718}
   - component: {fileID: 5311208585929629918}
-  - component: {fileID: 7294323032812264287}
+  - component: {fileID: 1181725155485267086}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -115,7 +115,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &7294323032812264287
+--- !u!114 &1181725155485267086
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,7 +124,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4687867745283326175}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2cf23832189eaf24a87ea22a5bb9c118, type: 3}
+  m_Script: {fileID: 11500000, guid: a7143200ede4a782aa1ab45587c9f74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyVision
   detectionRange: 10
@@ -134,8 +134,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   player: {fileID: 0}
-  fovMeshFilter: {fileID: 4904366542669871286}
-  eyes: {fileID: 682420235323182861}
 --- !u!1 &7111434590463228236
 GameObject:
   m_ObjectHideFlags: 0
