@@ -147,7 +147,7 @@ public class WorldGeneration : MonoBehaviour
 
         spawnedPlayer = Instantiate(player, origin, Quaternion.identity);
         
-        for (int i = 1; i < enemies; i++)
+        /*for (int i = 0; i < enemies; i++)
         {
             Quaternion  rotation = Quaternion.Euler(0f, Random.Range(0, 360f), 0f);
             
@@ -157,7 +157,7 @@ public class WorldGeneration : MonoBehaviour
             EnemyBehaviour scriptBehaviour = spawnedEnemy.GetComponent<EnemyBehaviour>();
             scriptVision.SetPlayer(spawnedPlayer.transform);
             scriptBehaviour.SetPlayer(spawnedPlayer.transform);
-        }
+        }*/
         
     }
 
