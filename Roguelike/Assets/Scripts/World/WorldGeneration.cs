@@ -124,7 +124,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedObstaclePosition.Contains(position)) return RandomGenerateObstacles();
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position)) return RandomGenerateObstacles();
         
         usedObstaclePosition.Add(position);
 
