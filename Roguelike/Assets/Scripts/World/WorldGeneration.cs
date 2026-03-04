@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.AI.Navigation;
 
 public class WorldGeneration : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class WorldGeneration : MonoBehaviour
     private List<Vector3> usedCollectibleLocation = new List<Vector3>();
     private GameObject spawnedPlayer;
     
+    [SerializeField] private NavMeshSurface navMeshSurface;
+
+    
     enum Corner { TopLeft, TopRight, BottomLeft, BottomRight }
     enum Wall { North, East, South, West }
 
@@ -53,8 +57,11 @@ public class WorldGeneration : MonoBehaviour
         RandomizeValues();
         
         GenerateWorld();
-        GenerateEntities();
         GenerateObstacles();
+        
+        navMeshSurface.BuildNavMesh();
+        
+        GenerateEntities();
         GenerateCollectibles();
     }
 
@@ -132,8 +139,10 @@ public class WorldGeneration : MonoBehaviour
             
             GameObject spawnedEnemy = Instantiate(enemy, RandomGenerateEntities(), rotation);
 
-            EnemyVision script = spawnedEnemy.GetComponent<EnemyVision>();
-            script.SetPlayer(spawnedPlayer.transform);
+            EnemyVision scriptVision = spawnedEnemy.GetComponent<EnemyVision>();
+            EnemyBehaviour scriptBehaviour = spawnedEnemy.GetComponent<EnemyBehaviour>();
+            scriptVision.SetPlayer(spawnedPlayer.transform);
+            scriptBehaviour.SetPlayer(spawnedPlayer.transform);
         }
         
     }

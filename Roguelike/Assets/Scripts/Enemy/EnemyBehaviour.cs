@@ -1,115 +1,119 @@
 using UnityEngine;
-using UnityEngine.U2D;
+using UnityEngine.AI;
 
 public class EnemyBehaviour : MonoBehaviour
 {
-    [Header("Enemies")] [SerializeField] private float rotateTime;
-    [SerializeField] private float idleTime;
+    [Header("Movement")]
+    [SerializeField] private float roamRadius = 20f;
 
-    private float currentIdleTime;
-    [SerializeField] private float rotateSpeed = 45f;
+    [Header("Idle Rotation")]
+    [SerializeField] private float rotateSpeed = 30f;
     [SerializeField] private float rotateMaxAngle = 45f;
+    [SerializeField] private float idleTime = 1.5f;
 
-    [SerializeField] private bool rotateLeft = true;
-    
-    [SerializeField] private bool isIdle;
-    [SerializeField] private bool isRotating;
-    [SerializeField] private bool isReturning;
-    [SerializeField] private float followSpeed = 10f;
-
-    private Quaternion targetRotation;
-    private Quaternion initialRotation;
-
+    private NavMeshAgent _agent;
     private EnemyVision _enemyVision;
+    private Transform _player;
+
+    private enum State { Roaming, IdleRotating, Chasing }
+    private State _state = State.IdleRotating;
+
+    private float _idleTimer;
+    private float _rotationAngle;
+    private float _rotationDirection = 1f;
+    private Quaternion _baseRotation;
 
     private void Start()
     {
-        // Boolean
-        isIdle = true;
-        isRotating = false;
-        isReturning = false;
-        
-        initialRotation = transform.rotation;
-        
-        // Current
-        currentIdleTime = 0f;
-        
-        rotateTime = Random.Range(1f, 2f);
-        idleTime = Random.Range(1f, 2.5f);
-
+        _agent = GetComponent<NavMeshAgent>();
         _enemyVision = GetComponent<EnemyVision>();
+        StartIdle();
     }
+
+    public void SetPlayer(Transform player) => _player = player;
 
     private void Update()
     {
-        if (_enemyVision.getIsDetectingPlayer())
+        if (!_player) return;
+
+        if (_enemyVision != null && _enemyVision.getIsDetectingPlayer())
         {
-            FollowPlayer();
-            return;
+            _state = State.Chasing;
         }
-        UpdateIdle();
-        UpdateRotate();
+        else if (_state == State.Chasing)
+        {
+            StartIdle();
+        }
+
+        switch (_state)
+        {
+            case State.Chasing:      Chase();        break;
+            case State.Roaming:      CheckArrival(); break;
+            case State.IdleRotating: IdleRotate();   break;
+        }
     }
 
-    private void FollowPlayer()
+    private void Chase()
     {
-        if (_enemyVision.player == null) return;
-
-        Vector3 directionToPlayer = _enemyVision.player.position - transform.position;
-        directionToPlayer.y = 0f;
-
-        if (directionToPlayer != Vector3.zero)
-        {
-            Quaternion lookRotation = Quaternion.LookRotation(directionToPlayer);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, followSpeed * Time.deltaTime);
-        }
+        _agent.isStopped = false;
+        _agent.SetDestination(_player.position);
     }
 
-    private void UpdateRotate()
+    private void CheckArrival()
     {
-        if (isRotating)
-        {
-            float angle = rotateLeft ? rotateMaxAngle : -rotateMaxAngle;
-            targetRotation = initialRotation * Quaternion.Euler(0, angle, 0);
-            
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotateSpeed * Time.deltaTime);
-
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
-            {
-                isRotating = false;
-                isIdle = true;
-                currentIdleTime = 0f;
-                isReturning = true;
-            }
-        }
-        else if (isReturning)
-        {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, initialRotation, rotateSpeed * Time.deltaTime);
-
-            if (Quaternion.Angle(transform.rotation, initialRotation) < 0.1f)
-            {
-                isReturning = false;
-                isIdle = true;
-                currentIdleTime = 0f;
-                rotateLeft = !rotateLeft;
-            }
-        }
+        if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
+            StartIdle();
     }
-    
-    private void UpdateIdle()
+
+    private void StartIdle()
     {
-        if (isIdle && !isRotating && !isReturning)
-        {
-            currentIdleTime += Time.deltaTime;
+        _state = State.IdleRotating;
+        _agent.isStopped = true;
+        _idleTimer = idleTime;
+        _rotationAngle = 0f;
+        _rotationDirection = 1f;
+        _baseRotation = transform.rotation;
+    }
 
-            if (currentIdleTime >= idleTime)
-            {
-                isIdle = false;
-                currentIdleTime = 0f;
-                isRotating = true;
-            }
+    private void IdleRotate()
+    {
+        _rotationAngle += rotateSpeed * _rotationDirection * Time.deltaTime;
+
+        if (_rotationAngle >= rotateMaxAngle)
+        {
+            _rotationAngle = rotateMaxAngle;
+            _rotationDirection = -1f;
+        }
+        else if (_rotationAngle <= -rotateMaxAngle)
+        {
+            _rotationAngle = -rotateMaxAngle;
+            _rotationDirection = 1f;
+        }
+
+        transform.rotation = _baseRotation * Quaternion.Euler(0, _rotationAngle, 0);
+
+        if (_rotationDirection == -1f)
+        {
+            _idleTimer -= Time.deltaTime;
+            if (_idleTimer <= 0f)
+                PickNewDestination();
         }
     }
-    
-    
+
+    private void PickNewDestination()
+    {
+        Vector3 randomDir = Random.insideUnitSphere * roamRadius + transform.position;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(randomDir, out hit, roamRadius, NavMesh.AllAreas))
+        {
+            _state = State.Roaming;
+            _agent.isStopped = false;
+            _agent.SetDestination(hit.position);
+        }
+        else
+        {
+            StartIdle();
+        }
+    }
 }
