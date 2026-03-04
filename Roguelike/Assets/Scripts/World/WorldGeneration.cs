@@ -80,35 +80,49 @@ public class WorldGeneration : MonoBehaviour
     private void GenerateWorld()
     {
         Instantiate(corner, origin, cornerRotations[Corner.BottomLeft]);
+        Instantiate(floor, origin + new Vector3(0, tileSize, 0), Quaternion.identity);
 
         for (int x = 1; x < worldLength - 1; x++)
+        {
             Instantiate(wall, origin + new Vector3(tileSize * x, 0, 0), wallRotations[Wall.South]);
+            Instantiate(floor, origin + new Vector3(tileSize * x, tileSize, 0), Quaternion.identity);
+        }
 
         Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, 0), cornerRotations[Corner.BottomRight]);
+        Instantiate(floor, origin + new Vector3(tileSize * (worldLength - 1), tileSize, 0), Quaternion.identity);
 
         for (int z = 1; z < worldWidth - 1; z++)
         {
             Instantiate(wall, origin + new Vector3(0, 0, tileSize * z), wallRotations[Wall.West]);
+            Instantiate(floor, origin + new Vector3(0, tileSize, tileSize * z), Quaternion.identity);
 
             for (int x = 1; x < worldLength - 1; x++)
             {
                 Vector3 position = origin + new Vector3(tileSize * x, 0, tileSize * z);
+                Vector3 positionRoof = origin + new Vector3(tileSize * x, tileSize, tileSize * z);
                 
                 Instantiate(floor, origin + position, Quaternion.identity);
+                Instantiate(floor, origin + positionRoof, Quaternion.identity);
                 
                 availableFloorPositions.Add(position);
                 
             }
 
             Instantiate(wall, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * z), wallRotations[Wall.East]);
+            Instantiate(floor, origin + new Vector3(tileSize * (worldLength - 1), tileSize, tileSize * z), Quaternion.identity);
         }
 
         Instantiate(corner, origin + new Vector3(0, 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopLeft]);
+        Instantiate(floor, origin + new Vector3(0, tileSize, tileSize * (worldWidth - 1)), Quaternion.identity);
 
         for (int x = 1; x < worldLength - 1; x++)
+        {
             Instantiate(wall, origin + new Vector3(tileSize * x, 0, tileSize * (worldWidth - 1)), wallRotations[Wall.North]);
+            Instantiate(floor, origin + new Vector3(tileSize * x, tileSize, tileSize * (worldWidth - 1)), Quaternion.identity);
+        }
 
         Instantiate(corner, origin + new Vector3(tileSize * (worldLength - 1), 0, tileSize * (worldWidth - 1)), cornerRotations[Corner.TopRight]);
+        Instantiate(floor, origin + new Vector3(tileSize * (worldLength - 1), tileSize, tileSize * (worldWidth - 1)), Quaternion.identity);
     }
 
     private void GenerateObstacles()
