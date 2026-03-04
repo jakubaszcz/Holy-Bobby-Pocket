@@ -112,10 +112,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
+  m_Radius: 0.80686647
+  m_Height: 3.348978
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.674489, z: 0.30686647}
 --- !u!114 &1181725155485267086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -155,6 +155,7 @@ MonoBehaviour:
   isIdle: 0
   isRotating: 0
   isReturning: 0
+  followSpeed: 10
 --- !u!1 &7111434590463228236
 GameObject:
   m_ObjectHideFlags: 0

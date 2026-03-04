@@ -66,8 +66,6 @@ public class WorldGeneration : MonoBehaviour
         entitiesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
         obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength + worldWidth) * 4);
         collectiblesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
-
-
     }
 
     private void GenerateWorld()
@@ -142,8 +140,9 @@ public class WorldGeneration : MonoBehaviour
     {
         for (int i = 0; i < collectiblesAmount; i++)
         {
-            Instantiate(collectible,  RandomGenerateCollectibles(), Quaternion.identity);
-        }
+            GameObject obj = Instantiate(collectible,  RandomGenerateCollectibles(), Quaternion.identity);
+        	obj.tag = "collectible";
+		}
     }
 
     private Vector3 RandomGenerateObstacles()
