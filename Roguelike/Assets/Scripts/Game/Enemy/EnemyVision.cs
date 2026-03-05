@@ -64,6 +64,7 @@ public class EnemyVision : MonoBehaviour
             {
                 isDetectingPlayer = true;
                 GameSignals.SetEnemySeeing(true);
+                GameSignals.TriggerOnSpot(1);
             }
         }
         else
