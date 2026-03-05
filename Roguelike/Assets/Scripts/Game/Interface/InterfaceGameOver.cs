@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class InterfaceGameOver : MonoBehaviour
 {
@@ -25,6 +26,22 @@ public class InterfaceGameOver : MonoBehaviour
             text.text = "You Lose!";
         }
         
+    }
+
+    public void OnMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+    
+    public void OnRestart()
+    {
+        Debug.Log("Restart");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+    
+    public void OnExit()
+    {
+        Application.Quit();
     }
     
     private void OnEnable()

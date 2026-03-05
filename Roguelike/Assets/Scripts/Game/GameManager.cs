@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool hasTimerStart;
     [SerializeField] private float timer;
 
+    private void Awake()
+    {
+        Time.timeScale = 1f;
+    }
+    
     private void Start()
     {
         hasTimerStart = false;
@@ -65,7 +70,7 @@ public class GameManager : MonoBehaviour
 
     public void OnGameOver(GameSignals.GameOver value)
     {
-        Debug.Log("Game Over");
+        Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }
     
