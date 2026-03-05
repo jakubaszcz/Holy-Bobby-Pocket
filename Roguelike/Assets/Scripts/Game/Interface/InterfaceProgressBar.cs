@@ -9,14 +9,21 @@ public class InterfaceProgressBar : MonoBehaviour
     {
         progressBarImage.fillAmount = 0f;
     }
+
+    private void DestroyAll(GameSignals.GameOver gameOverSignal)
+    {
+        Destroy(progressBarImage);
+    }
     
     private void OnEnable()
     {
+        GameSignals.OnGameOver += DestroyAll;
         GameSignals.OnSeenValueChanged += UpdateProgressBar;
     }
 
     private void OnDisable()
     {
+        GameSignals.OnGameOver -= DestroyAll;
         GameSignals.OnSeenValueChanged -= UpdateProgressBar;
     }
 

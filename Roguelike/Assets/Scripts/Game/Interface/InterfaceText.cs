@@ -26,15 +26,21 @@ public class InterfaceText : MonoBehaviour
         textObjectives.text = "Collect all the collectibles " + value + "/" + maxCollectibles;
     }
     
+    private void DestroyAll(GameSignals.GameOver gameOverSignal)
+    {
+        Destroy(textObjectives);
+    }
     private void OnEnable()
     {
+        GameSignals.OnGameOver += DestroyAll;
         GameSignals.OnTotalCollectible += TotalCollectibles;
         GameSignals.OnSubmitCurrentCollectibles += CurrentCollectibles;
     }
     
     private void OnDisable()
     {
-        GameSignals.OnTotalCollectible += TotalCollectibles;
+        GameSignals.OnGameOver -= DestroyAll;
+        GameSignals.OnTotalCollectible -= TotalCollectibles;
         GameSignals.OnSubmitCurrentCollectibles -= CurrentCollectibles;
     }
 }
