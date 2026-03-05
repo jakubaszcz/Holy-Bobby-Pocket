@@ -19,6 +19,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Vector2 movement;
     [SerializeField] private float xRotation;
     
+    [SerializeField] private bool hasMovedForTheFirstTime = false;
+    
     [SerializeField] private bool isSprint;
 
     private void Start()
@@ -28,6 +30,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnMovement(InputAction.CallbackContext context)
     {
+        if (!hasMovedForTheFirstTime)
+        {
+            GameSignals.TriggerOnStartTimer(true);
+            hasMovedForTheFirstTime = true;
+        }
         movement = context.ReadValue<Vector2>();
     }
     

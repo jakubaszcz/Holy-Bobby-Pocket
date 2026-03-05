@@ -5,6 +5,7 @@ public class InterfaceText : MonoBehaviour
 {
     [Header("Text Settings")]
     [SerializeField] private TMP_Text textObjectives;
+    [SerializeField] private TMP_Text textTimer;
 
     [SerializeField]
     private int maxCollectibles;
@@ -25,6 +26,15 @@ public class InterfaceText : MonoBehaviour
     {
         textObjectives.text = "Collect all the collectibles " + value + "/" + maxCollectibles;
     }
+
+    private void OnTimer(int value)
+    {
+        int hours = value / 3600;
+        int hTemp = value % 3600;
+        int minutes = hTemp / 60;
+        int seconds = hTemp % 60;
+        textTimer.text = hours.ToString("D2") + ":" + minutes.ToString("D2") + ":" + seconds.ToString("D2");
+    }
     
     private void DestroyAll(GameSignals.GameOver gameOverSignal)
     {
@@ -35,6 +45,7 @@ public class InterfaceText : MonoBehaviour
         GameSignals.OnGameOver += DestroyAll;
         GameSignals.OnTotalCollectible += TotalCollectibles;
         GameSignals.OnSubmitCurrentCollectibles += CurrentCollectibles;
+        GameSignals.OnTimer += OnTimer;
     }
     
     private void OnDisable()
@@ -42,5 +53,6 @@ public class InterfaceText : MonoBehaviour
         GameSignals.OnGameOver -= DestroyAll;
         GameSignals.OnTotalCollectible -= TotalCollectibles;
         GameSignals.OnSubmitCurrentCollectibles -= CurrentCollectibles;
+        GameSignals.OnTimer -= OnTimer;
     }
 }

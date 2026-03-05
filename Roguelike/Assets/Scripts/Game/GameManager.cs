@@ -7,8 +7,31 @@ public class GameManager : MonoBehaviour
     [SerializeField] private int currentCollectibles;
     [SerializeField] private int spotted;
 
+    [SerializeField] private bool hasTimerStart;
+    [SerializeField] private float timer;
+
+    private void Start()
+    {
+        hasTimerStart = false;
+    }
+
+    private void Update()
+    {
+        if (hasTimerStart)
+        {
+            timer += Time.deltaTime;
+            GameSignals.TriggerOnTimer((int)timer);
+        }
+    }
+    
+    private void OnStartTimer(bool value)
+    {
+        hasTimerStart = value;
+    }
+    
     private void OnEnable()
     {
+        GameSignals.OnStartTimer += OnStartTimer;
         GameSignals.OnSpot += OnSpot;
         GameSignals.OnCurrentCollectibles += HandleCollectibles;
         GameSignals.OnTotalCollectible += HandleTotal;
