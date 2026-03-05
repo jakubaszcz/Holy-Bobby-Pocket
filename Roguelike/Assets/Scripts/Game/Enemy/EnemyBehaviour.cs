@@ -15,13 +15,14 @@ public class EnemyBehaviour : MonoBehaviour
     private EnemyVision _enemyVision;
     private Transform _player;
 
-    private enum State { Roaming, IdleRotating, Chasing }
+    private enum State { Roaming, IdleRotating, Chasing, Investigating }
     private State _state = State.IdleRotating;
 
     private float _idleTimer;
     private float _rotationAngle;
     private float _rotationDirection = 1f;
     private Quaternion _baseRotation;
+    private Vector3 _lastKnownPlayerPosition;
 
     private void Start()
     {
@@ -39,20 +40,24 @@ public class EnemyBehaviour : MonoBehaviour
     {
         if (!_player) return;
 
-        if (_enemyVision != null && _enemyVision.getIsDetectingPlayer())
+        bool isDetecting = _enemyVision != null && _enemyVision.getIsDetectingPlayer();
+
+        if (isDetecting)
         {
             _state = State.Chasing;
+            _lastKnownPlayerPosition = _player.position;
         }
         else if (_state == State.Chasing)
         {
-            StartIdle();
+            StartInvestigating(_lastKnownPlayerPosition);
         }
 
         switch (_state)
         {
-            case State.Chasing:      Chase();        break;
-            case State.Roaming:      CheckArrival(); break;
-            case State.IdleRotating: IdleRotate();   break;
+            case State.Chasing:      Chase();             break;
+            case State.Investigating: CheckInvestigation(); break;
+            case State.Roaming:      CheckArrival();      break;
+            case State.IdleRotating: IdleRotate();        break;
         }
     }
 
@@ -60,6 +65,19 @@ public class EnemyBehaviour : MonoBehaviour
     {
         _agent.isStopped = false;
         _agent.SetDestination(_player.position);
+    }
+
+    public void StartInvestigating(Vector3 position)
+    {
+        _state = State.Investigating;
+        _agent.isStopped = false;
+        _agent.SetDestination(position);
+    }
+
+    private void CheckInvestigation()
+    {
+        if (!_agent.pathPending && _agent.remainingDistance < 0.5f)
+            StartIdle();
     }
 
     private void CheckArrival()
