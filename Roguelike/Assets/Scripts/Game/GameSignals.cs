@@ -15,6 +15,7 @@ public static class GameSignals
 	public static event Action<int> OnTotalCollectible;
     public static event Action<int> OnCurrentCollectibles;
     public static event Action<int> OnSubmitCurrentCollectibles;
+    public static event Action<float> OnCollectingCollectible;
 
     public static event Action<bool> OnStartTimer;
     public static event Action<int> OnTimer;
@@ -46,6 +47,8 @@ public static class GameSignals
     public static void TriggerOnSubmitCollectibles(int value) { OnSubmitCurrentCollectibles?.Invoke(value); } 
 	public static void TriggerOnSpot(int value) { OnSpot?.Invoke(value); } 
 	public static void TriggerOnTimer(int value) { OnTimer?.Invoke(value); } 
+    
+    public static void TriggerOnCollectingCollectible(float value) { OnCollectingCollectible?.Invoke(value); }
     
     
     public static void TriggerGameOver(GameOver gameOver) { OnGameOver?.Invoke(gameOver); }

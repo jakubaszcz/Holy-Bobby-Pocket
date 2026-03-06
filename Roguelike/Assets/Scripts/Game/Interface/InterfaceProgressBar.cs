@@ -3,35 +3,48 @@ using UnityEngine.UI;
 
 public class InterfaceProgressBar : MonoBehaviour
 {
-    [SerializeField] private Image progressBarImage;
+    [SerializeField] private Image progressBarSeenImage;
+    [SerializeField] private Image progressBarCollectImage;
 
     private void Start()
     {
-        progressBarImage.fillAmount = 0f;
+        progressBarSeenImage.fillAmount = 0f;
+        progressBarCollectImage.fillAmount = 0f;
     }
 
     private void DestroyAll(GameSignals.GameOver gameOverSignal)
     {
-        Destroy(progressBarImage);
+        Destroy(progressBarSeenImage);
+        Destroy(progressBarCollectImage);
     }
     
     private void OnEnable()
     {
         GameSignals.OnGameOver += DestroyAll;
-        GameSignals.OnSeenValueChanged += UpdateProgressBar;
+        GameSignals.OnSeenValueChanged += UpdateSeenProgressBar;
+        GameSignals.OnCollectingCollectible += UpdateCollectProgressBar;
     }
 
     private void OnDisable()
     {
         GameSignals.OnGameOver -= DestroyAll;
-        GameSignals.OnSeenValueChanged -= UpdateProgressBar;
+        GameSignals.OnSeenValueChanged -= UpdateSeenProgressBar;
+        GameSignals.OnCollectingCollectible -= UpdateCollectProgressBar;
     }
 
-    private void UpdateProgressBar(float value)
+    private void UpdateCollectProgressBar(float value)
     {
-        if (progressBarImage != null)
+        if (progressBarCollectImage != null)
         {
-            progressBarImage.fillAmount = value;
+            progressBarCollectImage.fillAmount = value;
+        }
+    }
+
+    private void UpdateSeenProgressBar(float value)
+    {
+        if (progressBarSeenImage != null)
+        {
+            progressBarSeenImage.fillAmount = value;
         }
     }
 }

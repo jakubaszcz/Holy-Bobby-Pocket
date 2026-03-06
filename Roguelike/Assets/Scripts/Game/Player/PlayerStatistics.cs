@@ -38,8 +38,6 @@ public class PlayerStatistics : MonoBehaviour
             }
         }
         
-        Debug.Log(currentSeen);
-        
         GameSignals.TriggerSeenValueChanged(currentSeen / maxTimeSeen);
     }
 
