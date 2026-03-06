@@ -11,7 +11,7 @@ public class PlayerInteract : MonoBehaviour
     [SerializeField] private Camera camera;
     
     private float _interactionTimer = 0f;
-    private const float InteractionTime = 3f;
+    private const float InteractionTime = 1f;
     private bool _isInteracting = false;
     private Collectible _currentCollectible;
 
@@ -24,7 +24,6 @@ public class PlayerInteract : MonoBehaviour
     {
         if (_isInteracting)
         {
-            // Vérifier si on regarde toujours le collectible
             Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
             Vector3 origin = ray.origin - ray.direction * 0.5f;
             float adjustedRange = range + 0.5f;
