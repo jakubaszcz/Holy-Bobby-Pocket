@@ -5,6 +5,7 @@ public class PlayerInteract : MonoBehaviour
 {
     [Header("Interact")] 
     [SerializeField] private float range = 5f;
+    [SerializeField] private float raycastRadius = 0.2f;
     [SerializeField] private LayerMask mask;
     private InputSystemActions _inputSystemActions;
     [SerializeField] private Camera camera;
@@ -17,20 +18,22 @@ public class PlayerInteract : MonoBehaviour
     {
         Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
 
-        if (Physics.Raycast(ray, out var hit, range, mask))
+        Vector3 origin = ray.origin - ray.direction * 0.5f;
+        float adjustedRange = range + 0.5f;
+
+        if (Physics.SphereCast(origin, raycastRadius, ray.direction, out var hit, adjustedRange, mask))
         {
-            Debug.Log("Interact");
-            Collectible collectible = hit.collider.GetComponent<Collectible>();
+            Debug.Log("Interact with: " + hit.collider.name);
+            Collectible collectible = hit.collider.GetComponentInParent<Collectible>();
 
             if (collectible)
             {
                 collectible.Collect();
-
                 return;
             }
             else
             {
-                Debug.Log("Nothinh to collect");
+                Debug.Log("Nothing to collect on " + hit.collider.name);
             }
         }
     }
