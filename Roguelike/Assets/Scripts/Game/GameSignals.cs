@@ -45,7 +45,7 @@ public static class GameSignals
     
     public static void TriggerSeenValueChanged(float value) { OnSeenValueChanged?.Invoke(value); }
 
-    public static void TriggerOnTotalColectible(int value) { OnTotalCollectible?.Invoke(value); } 
+    public static void TriggerOnTotalCollectible(int value) { OnTotalCollectible?.Invoke(value); } 
     public static void TriggerOnStartTimer(bool value) { OnStartTimer?.Invoke(value); } 
 	public static void TriggerOnCurrentCollectibles(int value) { OnCurrentCollectibles?.Invoke(value); } 
     public static void TriggerOnSubmitCollectibles(int value) { OnSubmitCurrentCollectibles?.Invoke(value); } 

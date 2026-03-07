@@ -1168,13 +1168,15 @@ MonoBehaviour:
   obstacle: {fileID: 2018402090161855417, guid: 63345978386033041a43422980aa57e0, type: 3}
   collectible: {fileID: 8450310335222824879, guid: dc7dff8da007fea49ad6007cde946abf, type: 3}
   zone: {fileID: 5770770148301830390, guid: 3c415191aa8517948828657b5285006b, type: 3}
+  trap: {fileID: 4455294998675464018, guid: 085f578d386a01c4e920a03c895530c5, type: 3}
   worldLength: 10
   worldWidth: 10
   tileSize: 5
-  tileHeight: 1.5
+  tileHeight: 1
   entitiesAmount: 0
   obstaclesAmount: 6
   collectiblesAmount: 2
+  trapsAmount: 10
   navMeshSurface: {fileID: 684831986}
 --- !u!114 &684831986
 MonoBehaviour:
