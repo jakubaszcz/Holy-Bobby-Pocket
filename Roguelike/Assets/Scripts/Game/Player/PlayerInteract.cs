@@ -67,6 +67,7 @@ public class PlayerInteract : MonoBehaviour
         {
             _currentCollectible = hit.collider.GetComponentInParent<Collectible>();
 
+            
             if (_currentCollectible)
             {
                 _isInteracting = true;

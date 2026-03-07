@@ -1176,7 +1176,7 @@ MonoBehaviour:
   tileHeight: 1
   entitiesAmount: 0
   obstaclesAmount: 6
-  collectiblesAmount: 2
+  collectiblesAmount: 5
   trapsAmount: 10
   navMeshSurface: {fileID: 684831986}
 --- !u!114 &684831986

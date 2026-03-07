@@ -44,7 +44,6 @@ public class PlayerStatistics : MonoBehaviour
     private void IsSeenChanged(bool value)
     {
         isSeen = value;
-        Debug.Log("Is seen :" + isSeen);
     }
     
     private void OnEnable()

@@ -22,7 +22,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private float tileHeight = 1f;
     [SerializeField] private float entitiesAmount; 
     [SerializeField] private int obstaclesAmount;
-    [SerializeField] private int collectiblesAmount = 20;
+    [SerializeField] private int collectiblesAmount = 5;
     [SerializeField] private int trapsAmount = 10;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();

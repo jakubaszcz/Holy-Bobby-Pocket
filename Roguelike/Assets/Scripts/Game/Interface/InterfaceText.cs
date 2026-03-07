@@ -12,7 +12,7 @@ public class InterfaceText : MonoBehaviour
 
     private void Start()
     {
-        textObjectives.text = "Collect all the collectibles 0/0";
+        textObjectives.text = "Collect all the collectibles 0/5";
         textTimeRemaining.text = "";
     }
 
@@ -45,7 +45,7 @@ public class InterfaceText : MonoBehaviour
         GameSignals.OnEndGameTimer += OnEndGameTimer;
     }
     
-    private void OnDisable()
+    private void OnDisable()    
     {
         GameSignals.OnGameOver -= DestroyAll;
         GameSignals.OnTotalCollectible -= TotalCollectibles;
