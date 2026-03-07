@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float sprintSpeed = 20f;
     [SerializeField] private float sensitivity = 1f;
+    [SerializeField] private bool isTrapped = false;
     
     [Header("Player directions")]
     [SerializeField] private Rigidbody rigidbody;
@@ -69,6 +70,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
+        if (isTrapped)
+        {
+            rigidbody.linearVelocity = Vector3.zero;
+            return;
+        }
         MovementUpdate();
     }
 
@@ -91,6 +97,11 @@ public class PlayerMovement : MonoBehaviour
             velocity.z
         );
     }
+
+    private void Ontrap(bool value)
+    {
+        isTrapped = value;
+    }
     
     private void OnEnable()
     {
@@ -106,6 +117,9 @@ public class PlayerMovement : MonoBehaviour
         
         // Look
         _inputSystemActions.Player.Look.performed += OnLook;
+        
+        // Trap
+        GameSignals.OnTrapped += Ontrap;
 
     }
     
@@ -123,6 +137,9 @@ public class PlayerMovement : MonoBehaviour
         
         // Look
         _inputSystemActions.Player.Look.performed -= OnLook;
+        
+        // trap
+        GameSignals.OnTrapped -= Ontrap;
     }
     
 }

@@ -13,6 +13,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject obstacle;
     [SerializeField] private GameObject collectible;
     [SerializeField] private GameObject zone;
+    [SerializeField] private GameObject trap;
 
     [Header("World Settings")]
     [SerializeField] private int worldLength = 10;
@@ -22,11 +23,13 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private float entitiesAmount; 
     [SerializeField] private int obstaclesAmount = 6;
     [SerializeField] private int collectiblesAmount = 2;
+    [SerializeField] private int trapsAmount = 10;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
     private List<Vector3> usedEntityPosition = new List<Vector3>();
     private List<Vector3> usedObstaclePosition = new List<Vector3>();
     private List<Vector3> usedCollectibleLocation = new List<Vector3>();
+    private List<Vector3> usedTrapLocation = new List<Vector3>();
     private GameObject spawnedPlayer;
     
     [SerializeField] private NavMeshSurface navMeshSurface;
@@ -95,6 +98,7 @@ public class WorldGeneration : MonoBehaviour
         
         GenerateEntities();
         GenerateCollectibles();
+        GenerateTraps();
     }
 
     private void RandomizeValues()
@@ -197,6 +201,27 @@ public class WorldGeneration : MonoBehaviour
             GameObject obj = Instantiate(collectible,  RandomGenerateCollectibles(), Quaternion.identity);
         	obj.tag = "collectible";
 		}
+    }
+
+    private void GenerateTraps()
+    {
+        for (int i = 0; i < trapsAmount; i++)
+        {
+            Instantiate(trap,  RandomGenerateTraps(), Quaternion.identity);
+        }
+    }
+    
+    private Vector3 RandomGenerateTraps()
+    {
+        Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
+
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedTrapLocation.Contains(position)) return RandomGenerateTraps();
+        
+        usedTrapLocation.Add(position);
+
+        position.y += tileHeight;
+        
+        return position;
     }
 
     private Vector3 RandomGenerateObstacles()

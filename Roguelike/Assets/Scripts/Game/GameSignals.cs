@@ -25,6 +25,8 @@ public static class GameSignals
     public static event Action<bool> OnEndGame;
     
     public static event Action<GameOver> OnGameOver;
+
+    public static event Action<bool> OnTrapped;
     
     private static int enemiesSeeingPlayer = 0;
 
@@ -55,6 +57,6 @@ public static class GameSignals
     
     public static void TriggerEndGameTimer(int value) { OnEndGameTimer?.Invoke(value); }
     
-    
+    public static void TriggerTrapped(bool value) { OnTrapped?.Invoke(value); }
     public static void TriggerGameOver(GameOver gameOver) { OnGameOver?.Invoke(gameOver); }
 }
