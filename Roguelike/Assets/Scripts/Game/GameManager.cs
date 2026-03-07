@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private bool hasTimerStart;
     [SerializeField] private float timer;
+    [SerializeField] private bool hasEndGameTimerStart;
+    [SerializeField] private float endGameTimer = 20f;
     [SerializeField] private Light spotLight;
 
     private void Awake()
@@ -28,6 +30,20 @@ public class GameManager : MonoBehaviour
             timer += Time.deltaTime;
             GameSignals.TriggerOnTimer((int)timer);
         }
+
+        if (hasEndGameTimerStart)
+        {
+            endGameTimer -= Time.deltaTime;
+
+            if (endGameTimer <= 0f)
+            {
+                            
+                endGameTimer = 0f;
+                GameSignals.TriggerGameOver(GameSignals.GameOver.Lose);
+            }
+            
+            GameSignals.TriggerEndGameTimer((int)endGameTimer);
+        }
     }
     
     private void OnStartTimer(bool value)
@@ -37,6 +53,7 @@ public class GameManager : MonoBehaviour
 
     private void OnEndGame(bool value)
     {
+        hasEndGameTimerStart = value;
         spotLight.color = Color.red;
         spotLight.intensity = 10f;
     }
