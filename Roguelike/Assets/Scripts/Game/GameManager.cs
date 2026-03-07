@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private bool hasTimerStart;
     [SerializeField] private float timer;
+    [SerializeField] private Light spotLight;
 
     private void Awake()
     {
@@ -33,6 +34,12 @@ public class GameManager : MonoBehaviour
     {
         hasTimerStart = value;
     }
+
+    private void OnEndGame(bool value)
+    {
+        spotLight.color = Color.red;
+        spotLight.intensity = 10f;
+    }
     
     private void OnEnable()
     {
@@ -40,6 +47,7 @@ public class GameManager : MonoBehaviour
         GameSignals.OnSpot += OnSpot;
         GameSignals.OnCurrentCollectibles += HandleCollectibles;
         GameSignals.OnTotalCollectible += HandleTotal;
+        GameSignals.OnEndGame += OnEndGame;
         GameSignals.OnGameOver += OnGameOver;
         
     }
@@ -49,6 +57,7 @@ public class GameManager : MonoBehaviour
         GameSignals.OnSpot -= OnSpot;
         GameSignals.OnTotalCollectible -= HandleTotal;
         GameSignals.OnCurrentCollectibles -= HandleCollectibles;
+        GameSignals.OnEndGame -= OnEndGame;
         GameSignals.OnGameOver -= OnGameOver;
     }
 
