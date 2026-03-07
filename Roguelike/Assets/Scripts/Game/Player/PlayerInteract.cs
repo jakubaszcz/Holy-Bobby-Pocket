@@ -13,6 +13,7 @@ public class PlayerInteract : MonoBehaviour
     private float _interactionTimer = 0f;
     private const float InteractionTime = 1f;
     private bool _isInteracting = false;
+    private bool _isCollectibleInRange = false;
     private Collectible _currentCollectible;
 
     void Awake()
@@ -22,6 +23,8 @@ public class PlayerInteract : MonoBehaviour
 
     void Update()
     {
+        CheckCollectibleInRange();
+
         if (_isInteracting)
         {
             Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
@@ -31,6 +34,7 @@ public class PlayerInteract : MonoBehaviour
             if (Physics.SphereCast(origin, raycastRadius, ray.direction, out var hit, adjustedRange, mask))
             {
                 Collectible hitCollectible = hit.collider.GetComponentInParent<Collectible>();
+                
                 if (hitCollectible != _currentCollectible)
                 {
                     StopInteraction();
@@ -54,6 +58,30 @@ public class PlayerInteract : MonoBehaviour
                 }
                 StopInteraction();
             }
+        }
+    }
+
+    private void CheckCollectibleInRange()
+    {
+        Ray ray = camera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+        Vector3 origin = ray.origin - ray.direction * 0.5f;
+        float adjustedRange = range + 0.5f;
+
+        bool isCurrentlyInRange = false;
+
+        if (Physics.SphereCast(origin, raycastRadius, ray.direction, out var hit, adjustedRange, mask))
+        {
+            Collectible hitCollectible = hit.collider.GetComponentInParent<Collectible>();
+            if (hitCollectible != null)
+            {
+                isCurrentlyInRange = true;
+            }
+        }
+
+        if (isCurrentlyInRange != _isCollectibleInRange)
+        {
+            _isCollectibleInRange = isCurrentlyInRange;
+            GameSignals.TriggerIsInRange(_isCollectibleInRange);
         }
     }
 
