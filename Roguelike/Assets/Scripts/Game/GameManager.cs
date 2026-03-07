@@ -94,8 +94,35 @@ public class GameManager : MonoBehaviour
         GameSignals.TriggerOnSubmitCollectibles(currentCollectibles);
     }
 
+    public void CalculateRank()
+    {
+        int totalSeconds = (int)timer;
+
+        int score = 1000;
+
+        score -= totalSeconds * 2;
+        score -= spotted * 50;
+
+        GameSignals.Rank rank;
+
+        if (score >= 900)
+            rank = GameSignals.Rank.S;
+        else if (score >= 700)
+            rank = GameSignals.Rank.A;
+        else if (score >= 500)
+            rank = GameSignals.Rank.B;
+        else if (score >= 300)
+            rank = GameSignals.Rank.C;
+        else
+            rank = GameSignals.Rank.D;
+
+        GameSignals.TriggerRank(rank);
+    }
+    
     public void OnGameOver(GameSignals.GameOver value)
     {
+        if (value == GameSignals.GameOver.Win)
+            CalculateRank();
         Cursor.lockState = CursorLockMode.None;
         Time.timeScale = 0;
     }

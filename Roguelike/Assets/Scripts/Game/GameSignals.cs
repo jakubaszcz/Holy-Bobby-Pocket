@@ -9,8 +9,19 @@ public static class GameSignals
         Win,
         Lose
     }
+
+    public enum Rank
+    {
+        D,
+        C,
+        B,
+        A,
+        S
+    }
     
     public static event Action<float> OnSeenValueChanged;
+    
+    public static event Action<Rank> OnRank;
     public static event Action<bool> IsSeenChanged;
 	public static event Action<int> OnTotalCollectible;
     public static event Action<int> OnCurrentCollectibles;
@@ -57,6 +68,7 @@ public static class GameSignals
     
     public static void TriggerEndGameTimer(int value) { OnEndGameTimer?.Invoke(value); }
     
+    public static void TriggerRank(Rank value) { OnRank?.Invoke(value); }
     public static void TriggerTrapped(bool value) { OnTrapped?.Invoke(value); }
     public static void TriggerGameOver(GameOver gameOver) { OnGameOver?.Invoke(gameOver); }
 }
