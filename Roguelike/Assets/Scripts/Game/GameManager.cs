@@ -10,7 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private bool hasTimerStart;
     [SerializeField] private float timer;
     [SerializeField] private bool hasEndGameTimerStart;
-    [SerializeField] private float endGameTimer = 20f;
+    [SerializeField] private float endGameTimer = 60f;
     [SerializeField] private Light spotLight;
 
     private void Awake()
