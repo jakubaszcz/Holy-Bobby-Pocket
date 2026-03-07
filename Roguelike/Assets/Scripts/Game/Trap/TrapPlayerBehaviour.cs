@@ -6,6 +6,7 @@ public class TrapPlayerBehaviour : MonoBehaviour
     [SerializeField] private bool trapActive = true;
     
     [SerializeField] private float timeUntilUnTrap = 3f;
+    [SerializeField] private AudioSource audio;
 
     private float timer;
 
@@ -29,6 +30,7 @@ public class TrapPlayerBehaviour : MonoBehaviour
 
         if (trapActive)
         {
+            audio.Play();
             GameSignals.TriggerTrapped(true);
 
             trapActive = false;
