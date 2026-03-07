@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
 
         if (currentCollectibles >= totalCollectibles)
         {
-            GameSignals.TriggerGameOver(GameSignals.GameOver.Win);
+            GameSignals.TriggerOnEndGame(true);
         }
         
         GameSignals.TriggerOnSubmitCollectibles(currentCollectibles);

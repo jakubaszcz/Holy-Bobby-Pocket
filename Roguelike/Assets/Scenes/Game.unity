@@ -1164,6 +1164,7 @@ MonoBehaviour:
   player: {fileID: 7831948903726590570, guid: 5269d91fd050dd34eb7da08883652a04, type: 3}
   obstacle: {fileID: 2018402090161855417, guid: 63345978386033041a43422980aa57e0, type: 3}
   collectible: {fileID: 8450310335222824879, guid: dc7dff8da007fea49ad6007cde946abf, type: 3}
+  zone: {fileID: 5770770148301830390, guid: 3c415191aa8517948828657b5285006b, type: 3}
   worldLength: 10
   worldWidth: 10
   tileSize: 5
@@ -1740,7 +1741,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InterfaceText
   textObjectives: {fileID: 2029372731}
-  textTimer: {fileID: 0}
   maxCollectibles: 0
 --- !u!114 &1802640750
 MonoBehaviour:

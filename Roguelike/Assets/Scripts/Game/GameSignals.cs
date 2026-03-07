@@ -21,6 +21,7 @@ public static class GameSignals
     public static event Action<int> OnTimer;
 
     public static event Action<int> OnSpot;
+    public static event Action<bool> OnEndGame;
     
     public static event Action<GameOver> OnGameOver;
     
@@ -49,6 +50,7 @@ public static class GameSignals
 	public static void TriggerOnTimer(int value) { OnTimer?.Invoke(value); } 
     
     public static void TriggerOnCollectingCollectible(float value) { OnCollectingCollectible?.Invoke(value); }
+    public static void TriggerOnEndGame(bool value) { OnEndGame?.Invoke(value); }
     
     
     public static void TriggerGameOver(GameOver gameOver) { OnGameOver?.Invoke(gameOver); }

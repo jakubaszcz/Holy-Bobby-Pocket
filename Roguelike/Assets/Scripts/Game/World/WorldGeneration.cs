@@ -12,6 +12,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private GameObject player;
     [SerializeField] private GameObject obstacle;
     [SerializeField] private GameObject collectible;
+    [SerializeField] private GameObject zone;
 
     [Header("World Settings")]
     [SerializeField] private int worldLength = 10;
@@ -20,7 +21,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private float tileHeight = 1.5f;
     [SerializeField] private float entitiesAmount; 
     [SerializeField] private int obstaclesAmount = 6;
-    [SerializeField] private int collectiblesAmount = 10;
+    [SerializeField] private int collectiblesAmount = 2;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
     private List<Vector3> usedEntityPosition = new List<Vector3>();
@@ -52,6 +53,30 @@ public class WorldGeneration : MonoBehaviour
         wallRotations[Wall.West]  = Quaternion.Euler(0, 270, 0);
     }
 
+    private void OnEnable()
+    {
+        GameSignals.OnEndGame += OnEndGame;
+    }
+
+    private void OnDisable()
+    {
+        GameSignals.OnEndGame -= OnEndGame;
+    }
+
+    private void OnEndGame(bool value)
+    {
+        if (value)
+        {
+            SpawnEndZone();
+        }
+    }
+
+    private void SpawnEndZone()
+    {
+        Vector3 position = RandomGenerateCollectibles();
+        Instantiate(zone, position, Quaternion.identity);
+    }
+
     private void Start()
     {
         RandomizeValues();
@@ -71,8 +96,7 @@ public class WorldGeneration : MonoBehaviour
         worldWidth = Random.Range(15, 35);
 
         entitiesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
-        obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength + worldWidth) * 4);
-        collectiblesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
+        obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength * worldWidth) / 2);
 
 		GameSignals.TriggerOnTotalColectible(collectiblesAmount);
     }
