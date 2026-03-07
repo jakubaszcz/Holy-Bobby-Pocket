@@ -74,6 +74,13 @@ public class WorldGeneration : MonoBehaviour
     private void SpawnEndZone()
     {
         Vector3 position = RandomGenerateCollectibles();
+
+        if (usedObstaclePosition.Contains(position))
+        {
+            SpawnEndZone();
+            return;
+        }
+        
         Instantiate(zone, position, Quaternion.identity);
     }
 
