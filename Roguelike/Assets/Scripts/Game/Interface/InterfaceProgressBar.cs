@@ -17,10 +17,16 @@ public class InterfaceProgressBar : MonoBehaviour
         Destroy(progressBarSeenImage);
         Destroy(progressBarCollectImage);
     }
+
+    private void OnEndGame(bool value)
+    {
+        progressBarSeenImage.color = Color.black;
+    }
     
     private void OnEnable()
     {
         GameSignals.OnGameOver += DestroyAll;
+        GameSignals.OnEndGame += OnEndGame;
         GameSignals.OnSeenValueChanged += UpdateSeenProgressBar;
         GameSignals.OnCollectingCollectible += UpdateCollectProgressBar;
     }
@@ -28,6 +34,7 @@ public class InterfaceProgressBar : MonoBehaviour
     private void OnDisable()
     {
         GameSignals.OnGameOver -= DestroyAll;
+        GameSignals.OnEndGame -= OnEndGame;
         GameSignals.OnSeenValueChanged -= UpdateSeenProgressBar;
         GameSignals.OnCollectingCollectible -= UpdateCollectProgressBar;
     }
