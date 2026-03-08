@@ -27,6 +27,7 @@ public class WorldGeneration : MonoBehaviour
     [SerializeField] private int trapsAmount = 10;
     
     private List<Vector3> availableFloorPositions = new List<Vector3>();
+    private List<Vector3> usedPlayerPositions = new List<Vector3>();
     private List<Vector3> usedEntityPosition = new List<Vector3>();
     private List<Vector3> usedObstaclePosition = new List<Vector3>();
     private List<Vector3> usedCollectibleLocation = new List<Vector3>();
@@ -176,11 +177,13 @@ public class WorldGeneration : MonoBehaviour
     
     private void GenerateEntities()
     {
-        Vector3 origin = availableFloorPositions[0];
+        Vector3 playerPos = availableFloorPositions[0];
         
-        origin.y += tileHeight;
+        usedPlayerPositions.Add(playerPos);
+        
+        playerPos.y += tileHeight;
 
-        spawnedPlayer = Instantiate(player, origin, Quaternion.identity);
+        spawnedPlayer = Instantiate(player, playerPos, Quaternion.identity);
         
         for (int i = 0; i < entitiesAmount; i++)
         {
@@ -217,7 +220,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedTrapLocation.Contains(position)) return RandomGenerateTraps();
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedTrapLocation.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateTraps();
         
         usedTrapLocation.Add(position);
 
@@ -230,7 +233,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position)) return RandomGenerateObstacles();
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateObstacles();
         
         usedObstaclePosition.Add(position);
 
@@ -241,7 +244,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedEntityPosition.Contains(position)) return RandomGenerateEntities();
+        if (usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateEntities();
         
         usedEntityPosition.Add(position);
         
@@ -254,7 +257,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
         
-        if (usedCollectibleLocation.Contains(position) || usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position)) return RandomGenerateCollectibles();
+        if (usedCollectibleLocation.Contains(position) || usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateCollectibles();
         
         usedCollectibleLocation.Add(position);
 

@@ -32,6 +32,7 @@ public class PlayerMovement : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        isTrapped = false;
     }
 
     private void OnMovement(InputAction.CallbackContext context)
