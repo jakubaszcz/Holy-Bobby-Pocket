@@ -109,7 +109,8 @@ public class WorldGeneration : MonoBehaviour
         worldWidth = Random.Range(25, 35);
 
         entitiesAmount = Random.Range((worldLength + worldWidth) / 2, worldLength + worldWidth);
-        obstaclesAmount = Random.Range(worldLength + worldWidth, (worldLength * worldWidth) / 2);
+        collectiblesAmount = 5;
+        obstaclesAmount = Random.Range(worldLength * worldWidth / 4, (worldLength * worldWidth) / 2);
         trapsAmount = Random.Range(worldLength + worldWidth, (worldLength * worldWidth) / 2);
 
 		GameSignals.TriggerOnTotalCollectible(collectiblesAmount);
@@ -220,7 +221,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedTrapLocation.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateTraps();
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedTrapLocation.Contains(position) || usedPlayerPositions.Contains(position) || usedCollectibleLocation.Contains(position)) return RandomGenerateTraps();
         
         usedTrapLocation.Add(position);
 
@@ -233,7 +234,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateObstacles();
+        if (usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position) || usedCollectibleLocation.Contains(position) || usedTrapLocation.Contains(position)) return RandomGenerateObstacles();
         
         usedObstaclePosition.Add(position);
 
@@ -244,7 +245,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
 
-        if (usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateEntities();
+        if (usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position) || usedObstaclePosition.Contains(position) || usedCollectibleLocation.Contains(position) || usedTrapLocation.Contains(position)) return RandomGenerateEntities();
         
         usedEntityPosition.Add(position);
         
@@ -257,7 +258,7 @@ public class WorldGeneration : MonoBehaviour
     {
         Vector3 position = availableFloorPositions[Random.Range(0, availableFloorPositions.Count)];
         
-        if (usedCollectibleLocation.Contains(position) || usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position)) return RandomGenerateCollectibles();
+        if (usedCollectibleLocation.Contains(position) || usedObstaclePosition.Contains(position) || usedEntityPosition.Contains(position) || usedPlayerPositions.Contains(position) || usedTrapLocation.Contains(position)) return RandomGenerateCollectibles();
         
         usedCollectibleLocation.Add(position);
 
