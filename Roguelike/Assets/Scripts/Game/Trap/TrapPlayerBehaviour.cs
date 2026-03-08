@@ -20,6 +20,7 @@ public class TrapPlayerBehaviour : MonoBehaviour
             {
                 trapActive = true;
                 GameSignals.TriggerTrapped(false);
+                Destroy(gameObject);
             }
         }
     }
