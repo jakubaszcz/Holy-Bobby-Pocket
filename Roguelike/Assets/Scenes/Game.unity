@@ -2578,6 +2578,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyAlert
   _audioSource: {fileID: 1782632178}
+  _fadeDuration: 1
+  _targetVolume: 0.1
 --- !u!82 &1782632178
 AudioSource:
   m_ObjectHideFlags: 0
