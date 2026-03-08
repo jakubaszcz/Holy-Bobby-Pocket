@@ -330,10 +330,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerStatistics
   camera: {fileID: 1207068770470305896}
+  staminaRegenRate: 0.5
+  staminaRecoveryDelay: 1
   walkSpeed: 10
-  sprintSpeed: 20
-  sensitivity: 1
-  isTrapped: 0
+  sprintSpeed: 15
+  jumpForce: 10
+  sensitivity: 0.4
+  isTrapped: 1
+  groundDistance: 0.4
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 512
+  groundCheck: {fileID: 0}
   rigidbody: {fileID: 7049382576621319968}
   look: {x: 0, y: 0}
   movement: {x: 0, y: 0}

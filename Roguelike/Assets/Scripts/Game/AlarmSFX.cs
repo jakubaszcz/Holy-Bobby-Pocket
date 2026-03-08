@@ -10,7 +10,7 @@ public class AlarmSFX : MonoBehaviour
         audio.Play();
     }
 
-    public void OnGameOver(GameSignals.GameOver gameOverSignal)
+    private void OnGameOver(GameSignals.GameOver gameOverSignal)
     {
         audio.Stop();
     }
@@ -23,6 +23,6 @@ public class AlarmSFX : MonoBehaviour
     private void OnDisable()
     {
         GameSignals.OnEndGame -= OnEndGame;
-        GameSignals.OnGameOver += OnGameOver;
+        GameSignals.OnGameOver -= OnGameOver;
     }
 }

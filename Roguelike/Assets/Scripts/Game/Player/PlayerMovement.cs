@@ -8,10 +8,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform camera;
     
     
+    [Header("Stamina settings")]
+    [SerializeField] private float staminaRegenRate = 0.5f;
+    [SerializeField] private float staminaRecoveryDelay = 1f;
+    private float _recoveryTimer = 0f;
+
     [Header("Player characteristics")]
     [SerializeField] private float walkSpeed = 10f;
     [SerializeField] private float sprintSpeed = 20f;
-    [SerializeField] private float sensitivity = 1f;
+    [SerializeField] private float sensitivity = 0.4f;
     [SerializeField] private bool isTrapped = false;
     
     [Header("Player directions")]
@@ -75,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
             rigidbody.linearVelocity = Vector3.zero;
             return;
         }
+
         MovementUpdate();
     }
 
@@ -101,6 +107,11 @@ public class PlayerMovement : MonoBehaviour
     private void Ontrap(bool value)
     {
         isTrapped = value;
+    }
+
+    private void OnJump(InputAction.CallbackContext context)
+    {
+        
     }
     
     private void OnEnable()
